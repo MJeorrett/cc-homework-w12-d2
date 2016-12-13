@@ -3,7 +3,8 @@ var BucketedCountriesView = function() {
 };
 
 BucketedCountriesView.prototype = {
-  populate: function( bucketedCountries ) {
+  refresh: function( bucketedCountries ) {
+    this.bucketList.innerHTML = "";
     bucketedCountries.forEach( function( bucketedCountry ) {
       var li = document.createElement( 'li' );
       li.innerText = bucketedCountry.name;
