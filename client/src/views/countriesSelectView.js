@@ -10,6 +10,7 @@ var CountriesSelectView = function( onChangeDelegate ) {
 
 CountriesSelectView.prototype = {
   populate: function( countriesData ) {
+    this.selectList.innerHTML = "<option value='' disabled selected>Select a Country</option>";
     countriesData.forEach( function( countryData ) {
       var option = document.createElement( 'option' );
       option.innerText = countryData.name;
