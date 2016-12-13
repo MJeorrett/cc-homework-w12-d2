@@ -13,9 +13,14 @@ var dbHelper = {
       db.close();
     });
   },
-  getAllWhere: function( collectionName, filter, callback ) {
-    this.connect( function( db ) {
+  getCollection: function( collectionName, callback ) {
+    var db = this.connect( function( db ) {
       var collection = db.collection( collectionName );
+      callback( collection );
+    });
+  },
+  getAllWhere: function( collectionName, filter, callback ) {
+    this.getCollection( collectionName, function( collection ) {
       if ( !filter ) filter = {};
       collection.find( filter ).toArray( function( err, data ) {
         if ( err ) {
@@ -24,7 +29,6 @@ var dbHelper = {
         else {
           callback( data );
         }
-
       });
     });
   }
