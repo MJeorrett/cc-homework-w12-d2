@@ -10,13 +10,14 @@ var bucketedCountries;
 var bucketedCountriesView;
 var countriesSelectView;
 
-window.onload = function() {
-
+var setUpCountriesSelect = function() {
   ajaxHelper.makeGetRequest( countriesUrl, function( countries ) {
     countriesSelectView = new CountriesSelectView( countrySelected );
     countriesSelectView.populate( countries );
   });
+};
 
+var setUpBucketedCountriesList = function() {
   ajaxHelper.makeGetRequest( bucketedCountriesUrl, function( response ) {
     bucketedCountries = response;
     bucketedCountriesView = new BucketedCountriesView();
@@ -39,4 +40,9 @@ var saveCountry = function( country ) {
   ajaxHelper.makePostRequest( postCountryUrl, country, function() {
     console.log( "country saved:", country );
   });
+};
+
+window.onload = function() {
+  setUpCountriesSelect();
+  setUpBucketedCountriesList();
 };
