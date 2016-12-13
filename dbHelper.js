@@ -31,6 +31,12 @@ var dbHelper = {
         }
       });
     });
+  },
+  insertInto: function( collectionName, doc, callback ) {
+    this.getCollection( collectionName, function( collection ) {
+      collection.insert( doc );
+      callback();
+    });
   }
 };
 
