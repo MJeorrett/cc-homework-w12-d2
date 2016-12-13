@@ -1,14 +1,30 @@
-var makeGetRequest = function( url, callback ) {
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.open( 'GET', url );
-  httpRequest.onload = function() {
-    if ( this.status == 200 ) {
-      callback( JSON.parse( this.responseText ) );
-    } else {
-      console.log( "Request failed with status ", this.status );
+var ajaxHelper = {
+  makeGetRequest: function( url, callback ) {
+    var request = new XMLHttpRequest();
+    request.open( 'GET', url );
+    request.onload = function() {
+      if ( this.status == 200 ) {
+        callback( JSON.parse( this.responseText ) );
+      } else {
+        console.log( "Request failed with status ", this.status );
+      }
+    };
+    request.send();
+  },
+  makePostRequest: function( url, data, callback ) {
+    var request = new XMLHttpRequest();
+    request.open( 'POST', url );
+    request.setRequestHeader( 'Content-Type', 'application/json' );
+    request.onload = function() {
+      if ( this.status == 200 ) {
+        if ( callback ) callback();
+      }
+      else {
+        console.error( "request failed with status", this.status );
+      }
     }
-  };
-  httpRequest.send();
-}
+    request.send( JSON.stringify( data ) );
+  }
+};
 
-module.exports = makeGetRequest;
+module.exports = ajaxHelper;
